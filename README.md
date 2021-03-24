@@ -16,7 +16,7 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 * Memory Utilization
     * Information about memory utilization exists in the `/proc/meminfo` file.
     * There are a variety of ways to use this data to calculate memory utilization.
-    * [Stack Overflow answer about how htop calculates memory utilization from the data in /proc/meminfo.]()
+    * [how htop calculates memory utilization from the data in `/proc/meminfo`](https://stackoverflow.com/questions/41224738/how-to-calculate-system-memory-usage-from-proc-meminfo-like-htop/41251290#41251290)
 
 * Total Processes
     * Information about the total number of processes on the system exists in the `/proc/meminfo` file.
