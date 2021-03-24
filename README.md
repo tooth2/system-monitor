@@ -20,8 +20,14 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 * Up Time
     * Information about system up time exists in the `/proc/uptime` file.
 
+### runtime environment
+#### ncurses
+- [ncurses](https://www.gnu.org/software/ncurses/) is a library that facilitates text-based graphical output in the terminal. 
+- This project relies on ncurses for display output.
+
 ## Reference
-[MS Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
-[Mac Activity Monitor](https://support.apple.com/guide/activity-monitor/welcome/mac)
-[Linux Top](https://man7.org/linux/man-pages/man1/top.1.html)
+- [MS Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
+- [Mac Activity Monitor](https://support.apple.com/guide/activity-monitor/welcome/mac)
+- [Linux Top](https://man7.org/linux/man-pages/man1/top.1.html)
+- [ncurses](https://www.gnu.org/software/ncurses/) 
 
