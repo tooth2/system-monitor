@@ -6,18 +6,14 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 
 * System Data
     * Linux stores a lot of system data in files within the `/proc` directory. 
-
 * Operating System
     * Information about the operating system exists outside of the `/proc` directory, in the `/etc/os-release` file.
     * There are several strings from which to choose here, but the most obvious is the value specified by "PRETTY_NAME".
-
 * Kernel
     * Information about the kernel exists `/proc/version` file.
 * Memory Utilization
     * Information about memory utilization exists in the `/proc/meminfo` file.
-    * There are a variety of ways to use this data to calculate memory utilization.
     * [how htop calculates memory utilization from the data in `/proc/meminfo`](https://stackoverflow.com/questions/41224738/how-to-calculate-system-memory-usage-from-proc-meminfo-like-htop/41251290#41251290)
-
 * Total Processes
     * Information about the total number of processes on the system exists in the `/proc/meminfo` file.
 * Running Processes
