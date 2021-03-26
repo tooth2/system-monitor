@@ -21,6 +21,19 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
     * Information about system up time exists in the `/proc/uptime` file.
 
 ### runtime environment
+-  display basic data about the system and individual processes
+-  list at least the operating system, kernel version, total number of processes, number of running processes, and up tim
+-  display the CPU utilization
+-  display a partial list of processes running on the system
+-  display the PID, user, CPU utilization, memory utilization, up time, and command for each process.
+
+### TBD
+- Calculate CPU utilization dynamically, based on recent utilization
+- Sort processes based on CPU or memory utilization
+- Make the display interactive
+- Restructure the program to use abstract classes (interfaces) and pure virtual functions
+- Port the program to another operating system
+
 #### ncurses
 - [ncurses](https://www.gnu.org/software/ncurses/) is a library that facilitates text-based graphical output in the terminal. 
 - This project relies on ncurses for display output.
