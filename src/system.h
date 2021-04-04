@@ -17,10 +17,14 @@ class System {
   int RunningProcesses();             
   std::string Kernel();               
   std::string OperatingSystem();      
+  void UpdateProcess(int pid);
+  void UpdateProcesses();
 
  private:
   Processor cpu_ = {};
   std::vector<Process> processes_ = {};
+
+
 };
 
 #endif
