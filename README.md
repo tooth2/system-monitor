@@ -20,8 +20,10 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 * Up Time
     * Information about system up time exists in the `/proc/uptime` file.
 
-### Result
-![result](result.png)
+### Result: Run-time Environment 
+* Build the project: `make build`
+* Run the resulting executable: `./build/monitor`
+![System Monitor](result.png)
 -  display basic data about the system and individual processes
 -  list at least the operating system, kernel version, total number of processes, number of running processes, and up tim
 -  display the CPU utilization
