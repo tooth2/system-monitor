@@ -27,7 +27,7 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 -  display the CPU utilization
 -  display a partial list of processes running on the system
 -  display the PID, user, CPU utilization, memory utilization, up time, and command for each process.
--  
+-  sory by CPU utilization and display PIDs according to sorted CPU utilization (high --> low) 
 
 ### TBD
 - Calculate CPU utilization dynamically, based on recent utilization
