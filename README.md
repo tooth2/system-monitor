@@ -33,10 +33,10 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 
 ### TBD
 - Calculate CPU utilization dynamically, based on recent utilization
-- Sort processes based on CPU or memory utilization
+- Sort processes(Pids) based on memory utilization as an optional choice(currently sort by CPU utilization)
 - Make the display interactive
 - Restructure the program to use abstract classes (interfaces) and pure virtual functions
-- Port the program to another operating system
+- Port the program to another operating system(currently Linux) 
 
 #### ncurses
 - [ncurses](https://www.gnu.org/software/ncurses/) is a library that facilitates text-based graphical output in the terminal. 
