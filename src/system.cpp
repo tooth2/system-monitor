@@ -17,12 +17,9 @@ using std::vector;
 // Return the system's CPU
 Processor& System::Cpu() {  return cpu_;  }
 
-// Return a container composed of the system's processes
+// Return a container composed of the system's updated processes
 vector<Process>& System::Processes() {   
-  vector<int> pids = LinuxParser::Pids();
-  for (auto const &pid : pids){
-      processes_.push_back(Process(pid));
-  }
+  UpdateProcesses();
   return processes_; 
 }
 
@@ -43,3 +40,22 @@ int System::TotalProcesses() {  return LinuxParser::TotalProcesses();  }
 
 // Return the number of seconds since the system started running
 long int System::UpTime() {  return LinuxParser::UpTime();  }
+
+
+// use system.h pre-defined attribuates: processes_
+void System::UpdateProcess(int pid){
+  Process process(pid);
+  processes_.emplace_back(process);
+}
+
+// use system.h pre-defined attribuates: processes_
+void System::UpdateProcesses(){
+  processes_.clear();
+  
+  vector<int> pids = LinuxParser::Pids();
+  for (auto const &pid : pids){
+    processes_.push_back(Process(pid));
+    UpdateProcess(pid);
+  }
+  std::sort(processes_.begin(), processes_.end());
+}
