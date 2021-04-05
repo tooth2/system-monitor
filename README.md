@@ -45,7 +45,7 @@ The system monitor is reading the information from the system program and lists 
 
 ## Reference
 - [Linux manual: proc - process information filesystem](https://man7.org/linux/man-pages/man5/proc.5.html)
-- [Linux manual: Top - display processes](https://man7.org/linux/man-pages/man1/top.1.html)
+- [Linux manual: top - display Linux processes](https://man7.org/linux/man-pages/man1/top.1.html)
 - [MS Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
 - [Mac Activity Monitor](https://support.apple.com/guide/activity-monitor/welcome/mac)
 - [ncurses](https://www.gnu.org/software/ncurses/) 
