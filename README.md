@@ -24,6 +24,7 @@ Process Monitor is an advanced monitoring tool for Windows that shows real-time 
 * Build the project: `make build`
 * Run the resulting executable: `./build/monitor`
 ![System Monitor](result.png)
+The system monitor is reading the information from the system program and lists the operating system, kernel version, total number of processes, number of running processes, and uptime. 
 -  display basic data about the system and individual processes
 -  list at least the operating system, kernel version, total number of processes, number of running processes, and up tim
 -  display the CPU utilization
