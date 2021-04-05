@@ -49,6 +49,6 @@ The system monitor is reading the information from the system program and lists 
 - [MS Process Monitor](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)
 - [Mac Activity Monitor](https://support.apple.com/guide/activity-monitor/welcome/mac)
 - [ncurses](https://www.gnu.org/software/ncurses/) 
-- [htop](https://github.com/hishamhm/htop)
+- [htop](https://htop.dev/), [htop-github](https://github.com/hishamhm/htop)
 - [RedhatLinux](https://access.redhat.com/solutions/406773)
 - [proc-meminfo](https://www.thegeekdiary.com/understanding-proc-meminfo-file-analyzing-memory-utilization-in-linux/)
