@@ -51,4 +51,4 @@ The system monitor is reading the information from the system program and lists 
 - [ncurses](https://www.gnu.org/software/ncurses/) 
 - [htop](https://github.com/hishamhm/htop)
 - [RedhatLinux](https://access.redhat.com/solutions/406773)
-
+- [proc-meminfo](https://www.thegeekdiary.com/understanding-proc-meminfo-file-analyzing-memory-utilization-in-linux/)
