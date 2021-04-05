@@ -82,8 +82,9 @@ float LinuxParser::MemoryUtilization() {
         if (key == "MemTotal:"){
           mem_total = std::stol(value);
         }
-        if (key == "MemFree:"){
-          mem_free = std::stol(value); 
+        if (key == "MemFree:"){ 
+          if(value !="") mem_free = std::stol(value); 
+          
         }
       }
     }  
@@ -104,10 +105,25 @@ long LinuxParser::UpTime() {
     std::getline(stream, line);
     std::istringstream linestream(line);
     linestream >> uptime_s;
-    uptime_l = std::stol(uptime_s);
+    if(uptime_s!="") uptime_l = std::stol(uptime_s);
   }
 
   return uptime_l;  
+}
+vector<string> split(const string& str, const string& delim)
+{
+    vector<string> tokens;
+    size_t prev = 0, pos = 0;
+    do
+    {
+        pos = str.find(delim, prev);
+        if (pos == string::npos) pos = str.length();
+        string token = str.substr(prev, pos-prev);
+        if (!token.empty()) tokens.push_back(token);
+        prev = pos + delim.length();
+    }
+    while (pos < str.length() && prev < str.length());
+    return tokens;
 }
 
 // Read and return the number of jiffies for the system
@@ -116,7 +132,27 @@ long LinuxParser::Jiffies() {
 }
 
 // Read and return the number of active jiffies for a PID
-long LinuxParser::ActiveJiffies(int pid[[maybe_unused]]) { return 0; }
+long LinuxParser::ActiveJiffies(int pid) { 
+
+  vector<string> splited_words; 
+  string line;
+  long utime = 0, stime = 0, cutime = 0, cstime = 0, active_jiffies=0; 
+
+
+  std::ifstream stream(kProcDirectory + "/"+ std::to_string(pid) + kStatFilename);
+  if (stream.is_open()) {
+    std::getline(stream, line);
+    splited_words = split(line, " ");
+
+    if(splited_words[13]!="") utime = std::stol(splited_words[13]);
+    if(splited_words[14]!="") stime = std::stol(splited_words[14]);
+    if(splited_words[15]!="") cutime = std::stol(splited_words[15]);
+    if(splited_words[16]!="") cstime = std::stol(splited_words[16]);
+    
+    active_jiffies =  utime + stime + cutime + cstime ;
+  }
+  return active_jiffies; 
+}
 
 // Read and return the number of active jiffies for the system
 long LinuxParser::ActiveJiffies() { 
@@ -130,7 +166,7 @@ long LinuxParser::ActiveJiffies() {
     linestream >> cpu >> user >> nice >> system >> idle >> iowait >> irq \
       >> softirq >> steal >> guest >> guest_nice;
  
-    active_jiffies = user + nice + system + irq + softirq + steal;
+    active_jiffies = user + nice + system + irq + softirq + steal + guest + guest_nice;
   }
   return active_jiffies; 
 }
@@ -153,7 +189,7 @@ long LinuxParser::IdleJiffies() {
 
 // Read and return CPU utilization
 vector<string> LinuxParser::CpuUtilization() { 
-  string line, cpu, cpu_time;
+  string line, cpu;
   vector<string> cpu_utilizations;
   std::ifstream filestream(kProcDirectory + kStatFilename);
 
@@ -162,28 +198,14 @@ vector<string> LinuxParser::CpuUtilization() {
     std::istringstream linestream(line);
     linestream >> cpu;
 
-    while (linestream >> cpu_time) {
-      cpu_utilizations.emplace_back(cpu_time);
+    while (linestream >> cpu) {
+      cpu_utilizations.emplace_back(cpu);
     }
   }
   return cpu_utilizations;
 }
 
-vector<string> split(const string& str, const string& delim)
-{
-    vector<string> tokens;
-    size_t prev = 0, pos = 0;
-    do
-    {
-        pos = str.find(delim, prev);
-        if (pos == string::npos) pos = str.length();
-        string token = str.substr(prev, pos-prev);
-        if (!token.empty()) tokens.push_back(token);
-        prev = pos + delim.length();
-    }
-    while (pos < str.length() && prev < str.length());
-    return tokens;
-}
+
 
 float LinuxParser::CpuUtilization(int pid){
   float cpu_utilization = 0.0f;
@@ -196,7 +218,7 @@ float LinuxParser::CpuUtilization(int pid){
   if (uptime_stream.is_open()) {
     std::getline(uptime_stream, line);
     splited_words = split(line, " ");
-    uptime = std::stol(splited_words[0]);
+    if(splited_words[0]!="") uptime = std::stol(splited_words[0]);
   }
 
 
@@ -205,17 +227,17 @@ float LinuxParser::CpuUtilization(int pid){
     std::getline(stream, line);
     splited_words = split(line, " ");
 
-    utime = std::stol(splited_words[13]);
-    stime = std::stol(splited_words[14]);
-    cutime = std::stol(splited_words[15]);
-    cstime = std::stol(splited_words[16]);
-    starttime = std::stol(splited_words[21]);
+    if(splited_words[13]!="") utime = std::stol(splited_words[13]);
+    if(splited_words[14]!="") stime = std::stol(splited_words[14]);
+    if(splited_words[15]!="") cutime = std::stol(splited_words[15]);
+    if(splited_words[16]!="") cstime = std::stol(splited_words[16]);
+    if(splited_words[21]!="") starttime = std::stol(splited_words[21]);
     
     long total_time =  utime + stime + cutime + cstime ;
     long seconds = uptime - (starttime/hertz); 
     cpu_utilization = 1.0f * (total_time/hertz) / seconds; 
     
-    if (cpu_utilization >100.0) cpu_utilization = 0.0;
+    //if (cpu_utilization >100.0) cpu_utilization = 0.0;
    
   }
 
@@ -232,7 +254,7 @@ int LinuxParser::TotalProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) { 
         if (key == "processes"){
-          total_process = std::stoi(value);
+          if(value!="") total_process = std::stoi(value);
           break;
         }
       }
@@ -252,7 +274,7 @@ int LinuxParser::RunningProcesses() {
       std::istringstream linestream(line);
       while (linestream >> key >> value) { 
         if (key == "procs_running"){
-          running_processes = std::stoi(value);
+          if(value!="") running_processes = std::stoi(value);
           break;
         }
       }
@@ -289,7 +311,7 @@ string LinuxParser::Ram(int pid) {
       }
     }  
   }
-  ram = std::to_string(std::stol(ram)/1024);
+  if(ram!="") ram = std::to_string(std::stol(ram)/1024);
 
   return ram;  
 }
@@ -338,13 +360,15 @@ long LinuxParser::UpTime(int pid) {
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
+    //linestream >> uptime;
     using StrIt = std::istream_iterator<std::string>;
     std::vector<std::string> container{StrIt{linestream}, StrIt{}};
     if (container.size() >= 22) {
       uptime_s= container.at(21);
     }
   } 
-  
-  uptime = std::stoi(uptime_s) / sysconf(_SC_CLK_TCK);
+  if(uptime_s !="") {
+  uptime = UpTime()- std::stol(uptime_s) / sysconf(_SC_CLK_TCK);
+  }
   return uptime; 
 }
